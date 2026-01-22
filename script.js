@@ -1,23 +1,40 @@
-// scroll animation
-const items = document.querySelectorAll(".reveal");
+// scroll reveal 
+const reveals = document.querySelectorAll(".reveal");
 
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("active");
-        observer.unobserve(entry.target);
-      }
-    });
-  },
-  { threshold: 0.15 }
-);
+const revealOnScroll = () => {
+  reveals.forEach((el, index) => {
+    const windowHeight = window.innerHeight;
+    const elementTop = el.getBoundingClientRect().top;
+    const revealPoint = 120;
 
-document.querySelectorAll(".reveal").forEach((el) => {
-  observer.observe(el);
+    if (elementTop < windowHeight - revealPoint) {
+      el.classList.add("active");
+
+      // one-by-one stagger
+      el.style.transitionDelay = `${index * 120}ms`;
+    } else {
+      el.classList.remove("active");
+      el.style.transitionDelay = "0ms";
+    }
+  });
+};
+
+let ticking = false;
+
+const optimizedReveal = () => {
+  revealOnScroll();
+  ticking = false;
+};
+
+window.addEventListener("scroll", () => {
+  if (!ticking) {
+    window.requestAnimationFrame(optimizedReveal);
+    ticking = true;
+  }
 });
 
-items.forEach(el=>observer.observe(el));
+revealOnScroll();
+
 
 // theme toggle
 const toggle = document.getElementById("themeToggle");
@@ -35,3 +52,15 @@ toggle.onclick = () => {
     icon.classList.add("fa-moon");
   }
 };
+
+// ultra smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener("click", function (e) {
+    e.preventDefault();
+    document.querySelector(this.getAttribute("href")).scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  });
+});
+
