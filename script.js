@@ -11,7 +11,7 @@ const revealOnScroll = () => {
       el.classList.add("active");
 
       // one-by-one stagger
-      el.style.transitionDelay = `${index * 120}ms`;
+      el.style.transitionDelay = `${index * 60}ms`;
     } else {
       el.classList.remove("active");
       el.style.transitionDelay = "0ms";
