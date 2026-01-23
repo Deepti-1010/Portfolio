@@ -13,7 +13,7 @@ It demonstrates front-end fundamentals including layout systems, scroll-based re
 
 ## 🚀 Live Preview
 
-🔗 **Live Site:** *(add deployment link)*  
+🔗 **Live Site:** https://deepti-1010.github.io/WorkIndex/  
 📂 **Repository:** https://github.com/Deepti-1010/WorkIndex.git
 
 ---
